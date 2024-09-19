@@ -19,10 +19,4 @@ let numberBot = function (x) {
   return selectNumber();
 };
 
-let hiddenNumber = numberBot(52);
-
-// let oop = function hiddenNumber(min, max) {
-//   return Math.floor(Math.random() * (max - min) + min);
-// };
-// hiddenNumber(100, 1);
-// console.log(oop);
+numberBot(52);
