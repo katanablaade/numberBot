@@ -1,44 +1,45 @@
 'use strict';
 
-// function randomNumbers(min, max) {
-//   return Math.floor(Math.random() * (max - min) + min);
-// }
-// const numbers = randomNumbers(100, 1);
-// console.log(numbers);
+function randomNumbers(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
 
-let numberBot = function (x, y) {
-  let question = +prompt('Угадай число от 1 до 100');
-  console.log(question);
-  function selectNumber() {
-    if (question === x && y <= 10 && y !== 0) {
+let numberBot = function (x) {
+  let randNumb = randomNumbers(100, 1);
+  return function selectNumber() {
+    console.log(randNumb);
+    let question = +prompt('Угадай число от 1 до 100');
+    if (question === randNumb && x <= 10 && x !== 0) {
       const newGame = confirm(
         'Поздравляю, Вы угадали!!! Хотели бы сыграть еще?'
       );
-      if (newGame === true) {
-        numberBot(52, 10);
+      if (newGame) {
+        //сравниваю с true (if принимает значение true/false)
+        numberBot(9)();
       } else {
         alert('Игра окончена');
       }
-    } else if (y === 0) {
+    } else if (x === 0) {
       const failedGame = confirm('Попытки закончились, хотите сыграть еще?');
-      if (failedGame === true) {
-        numberBot(52, 10);
+      if (failedGame) {
+        numberBot(9)();
       } else {
         alert('Игра окончена');
       }
-    } else if (question > x && y !== 0) {
-      alert(`Загаданное число меньше, осталось попыток: ${y}`),
-        numberBot(52, y - 1);
-    } else if (question < x && question !== 0 && y !== 0) {
-      alert(`Загаданное число больше, осталось попыток: ${y}`),
-        numberBot(52, y - 1);
+    } else if (question > randNumb && x !== 0) {
+      alert(`Загаданное число меньше, осталось попыток: ${x}`);
+      x--;
+      selectNumber();
+    } else if (question < randNumb && question !== 0 && x !== 0) {
+      alert(`Загаданное число больше, осталось попыток: ${x}`);
+      x--;
+      selectNumber();
     } else if (question === 0) {
       alert('Игра окончена');
     } else if (question !== typeof Number) {
-      alert('Введите число!'), numberBot(52, 10);
+      alert('Введите число!'), selectNumber();
     }
-  }
-  return selectNumber();
+  };
 };
 
-numberBot(52, 10);
+numberBot(9)();
